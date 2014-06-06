@@ -1,7 +1,7 @@
 /*
-*2014.01.25；
-*试图解决板子移动第一下慢的问题。
-*板子出现问题只向左移动再向右移动，然后无法移动
+*2014.01.26；
+*板子移动已经改好，需要微调，板子移动顺畅，可以降低sleep()时间，改小移动距离，已改动
+*此版本让小球碰到板子反弹 ，wall接不到小球，小球就死亡，游戏结束；不然没办法写砖块，主要改动ball和wall
 */
 
 import java.awt.*;
@@ -11,14 +11,16 @@ public class ZHUANKUAI extends Frame {
 	public static final int GAME_WIDTH = 600;
 	public static final int GAME_HEIGHT = 400;
 	
-	 Wall MyWall = new Wall(50);
+	 Wall MyWall = new Wall(50,380);
 	 Ball MyBall = new Ball(60,60);
 	
 	Image offScreenImage = null;
 	
 	public void paint(Graphics g) {
 		MyWall.draw(g);
+		MyBall.hit(MyWall);//判断球和板碰撞
 		MyBall.draw(g);
+
 	}
 	
 
@@ -65,7 +67,7 @@ public class ZHUANKUAI extends Frame {
 			while(true) {
 				repaint();
 				try {
-					Thread.sleep(100);
+					Thread.sleep(10);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -77,8 +79,10 @@ public class ZHUANKUAI extends Frame {
 
 		public void keyPressed(KeyEvent e) {
 			MyWall.keyPressed(e);
-		
 		}
+		public void keyReleased(KeyEvent e){
+		    MyWall.keyReleased(e);
+		}//判断按键释放，板停止
 	}
 }
 

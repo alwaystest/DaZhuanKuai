@@ -9,8 +9,10 @@ import java.awt.event.*;
 
 
 public class Wall{
-	int x;//初始位置
-	
+	int x,y;
+	public static final int SPEED = 3;
+	public static final int WIDTH = 40;
+	public static final int HEIGHT = 2;
 	private boolean live = true;
 	
 	private boolean bL=false,bR=false;
@@ -18,8 +20,9 @@ public class Wall{
 	
 	private Direction dir = Direction.STOP;
 	
-	public Wall(int x){
+	public Wall(int x,int y){
 	this.x=x;
+	this.y=y;
 	}
 	
 public void draw(Graphics g) {
@@ -27,8 +30,9 @@ public void draw(Graphics g) {
 		
 		Color c = g.getColor();
 		g.setColor(Color.RED);
-		g.drawLine(x,379,x+40,379);
-		g.drawLine(x,380,x+40,380);//两条线当做下面的板子
+		//g.drawLine(x,379,x+40,379);
+		g.drawRect(x,y,WIDTH,HEIGHT);//改动，用矩形代替板子，便于判断碰撞事件,好像一个框框好看一点
+		//g.fillRect(x,y,WIDTH,HEIGHT);
 		g.setColor(c);
 	
 		move();
@@ -37,10 +41,10 @@ public void draw(Graphics g) {
 	void move() {
 		switch(dir) {
 		case L:
-			x -= 20;
+			x -= SPEED;
 			break;
 		case R:
-			x += 20;
+			x += SPEED;
 			break;
 		case STOP:
 			break;
@@ -87,4 +91,8 @@ public void draw(Graphics g) {
 			}
 			locateDirection();
 		}
+		
+		public Rectangle getRect() {
+		return new Rectangle(x, y, WIDTH, HEIGHT+2);
+	}
 }
