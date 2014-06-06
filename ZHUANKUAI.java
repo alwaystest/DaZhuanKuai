@@ -11,19 +11,15 @@ public class ZHUANKUAI extends Frame {
 	public static final int GAME_WIDTH = 600;
 	public static final int GAME_HEIGHT = 400;
 	
-	 int x = 50 ;
+	 Wall MyWall= new Wall(50);
 	
 	Image offScreenImage = null;
 	
 	public void paint(Graphics g) {
-		
-		Color c = g.getColor();
-		g.setColor(Color.RED);
-		g.drawLine(x,379,x+40,379);
-		g.drawLine(x,380,x+40,380);//g.fillOval(x, y, 30, 30);
-		g.setColor(c);
+		MyWall.draw(g);
 	}
 	
+
 	public void update(Graphics g) {
 		if(offScreenImage == null) {
 			offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
@@ -35,7 +31,7 @@ public class ZHUANKUAI extends Frame {
 		gOffScreen.setColor(c);
 		paint(gOffScreen);
 		g.drawImage(offScreenImage, 0, 0, null);
-	}
+	}//Ë«»º´æ
 
 	public void lauchFrame() {
 		this.setLocation(100,100);
@@ -78,24 +74,10 @@ public class ZHUANKUAI extends Frame {
 	private class KeyMonitor extends KeyAdapter {
 
 		public void keyPressed(KeyEvent e) {
-			int key = e.getKeyCode();
-			switch(key) {
-			case KeyEvent.VK_LEFT :
-				x -= 5;
-				break;
-			//case KeyEvent.VK_UP :
-				//y -= 5;
-				//break;
-			case KeyEvent.VK_RIGHT :
-				x += 5;
-				break;
-			//case KeyEvent.VK_DOWN :
-				//y += 5;
-				//break;
-			}
-		}
+			MyWall.keyPressed(e);
 		
 	}
+}
 }
 
 
