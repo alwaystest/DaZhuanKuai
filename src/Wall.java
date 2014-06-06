@@ -1,7 +1,7 @@
 /*
-*2014.01.26.2:00£»
-*ÒÑ½â¾ö¡£
-*¿ÉÅÐ¶Ï°åÓëÇòµÄÅö×²£¬Ïê¼ûintersects£¨£©£»API¼°TANK1.6
+*2014.01.26.2:00ï¿½ï¿½
+*ï¿½Ñ½ï¿½ï¿½ï¿½ï¿½
+*ï¿½ï¿½ï¿½Ð¶Ï°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½ï¿½intersectsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½APIï¿½ï¿½TANK1.6
 */
 import java.awt.*;
 import java.awt.event.*;
@@ -25,21 +25,21 @@ public class Wall{
 	}
 	
 public void draw(Graphics g) {
-		if(!live) return;//ÅÐ¶Ï°å×ÓÊÇ·ñ´æ»î£¬ËÀÍö¾Í²»ÓÃÔÙ»­ÁË
+		if(!live) return;//ï¿½Ð¶Ï°ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½î£¬ï¿½ï¿½ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½ï¿½Ù»ï¿½ï¿½ï¿½
 		
 		Color c = g.getColor();
 		g.setColor(Color.RED);
 		//g.drawLine(x,379,x+40,379);
-		g.drawRect(x,y,WIDTH,HEIGHT);//¸Ä¶¯£¬ÓÃ¾ØÐÎ´úÌæ°å×Ó£¬±ãÓÚÅÐ¶ÏÅö×²ÊÂ¼þ,ºÃÏñÒ»¸ö¿ò¿òºÃ¿´Ò»µã
+		g.drawRect(x,y,WIDTH,HEIGHT);//ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½Ã¾ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½×²ï¿½Â¼ï¿½,ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½Ò»ï¿½ï¿½
 		//g.fillRect(x,y,WIDTH,HEIGHT);
 		g.setColor(c);
-		//setlocation();
+		setlocation();
 		//move();
-		Point mp=g.getMousePosition();
+		/*Point mp=g.getMousePosition();
 		if (mp!=null)
 			x=mp.x;
 		else
-			move();
+			move();*/
 	}
 	
 	void setlocation() throws HeadlessException{
