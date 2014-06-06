@@ -31,9 +31,9 @@ public class Ball{
 			X=true;
 		else if(y>=400)
 			live=false;
-		else if(x>=600)
+		else if(x>=585)
 			X=false;
-		else if(y<=5)
+		else if(y<=25)
 			Y=true;
 		if(X==true && Y==true)
 			{x+=XSPEED;y+=YSPEED;}
@@ -50,7 +50,7 @@ public class Ball{
 		return new Rectangle(x, y, R, R);
 	}
 	
-	public boolean hit(Wall w){
+	public boolean hitwall(Wall w){
 		if(this.getRect().intersects(w.getRect())) {//getRect创建矩形，用于判断碰撞，intersects方法用于判断矩形是否相交见api与tank1.6
 			Y=false;//判断球与板碰撞以后改变球的运动方向
 			//System.out.println(x+"  "+y);
@@ -60,5 +60,15 @@ public class Ball{
 		return false;
 	}
 	
-
+	public boolean hitzk(ZK zk){
+		if(this.getRect().intersects(zk.getRect())&&zk.getLive()==true) {//getRect创建矩形，用于判断碰撞，intersects方法用于判断矩形是否相交见api与tank1.6
+			Y=false;//判断球与板碰撞以后改变球的运动方向
+			zk.setLive(false);
+			//System.out.println(x+"  "+y);
+			
+			return true;
+		}
+		return false;
+	}
+	
 }
