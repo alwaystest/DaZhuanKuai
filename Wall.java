@@ -9,8 +9,8 @@ import java.awt.event.*;
 
 public class Wall{
 	int x,y;
-	public static final int SPEED = 3;
-	public static final int WIDTH = 40;
+	public static final int SPEED = 8;
+	public static final int WIDTH = 600;
 	public static final int HEIGHT = 2;
 	private boolean live = true;
 	
@@ -50,7 +50,7 @@ public void draw(Graphics g) {
 		}
 		
 		if(x < 0) x = 0;
-		if(x+40>595) x=555;
+		if(x+WIDTH>595) x=595-WIDTH;//bug1
 	}
 
 		

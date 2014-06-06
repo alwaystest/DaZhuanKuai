@@ -6,8 +6,8 @@ public class Ball{
 	int x,y;
 	private boolean live = true;
 	private boolean X=true,Y=true;
-	public static final int XSPEED = 2;
-	public static final int YSPEED = 2;
+	public static final int XSPEED = 5;
+	public static final int YSPEED = 5;
 	public static final int R=10;
 	public Ball(int x, int y){
 		this.x=x;
@@ -47,7 +47,7 @@ public class Ball{
 	}
 	
 	public Rectangle getRect() {
-		return new Rectangle(x, y, R, R);
+		return new Rectangle(x-R, y-R, R+R, R+R);//加法速度比乘法快
 	}
 	
 	public boolean hitwall(Wall w){
@@ -62,7 +62,19 @@ public class Ball{
 	
 	public boolean hitzk(ZK zk){
 		if(this.getRect().intersects(zk.getRect())&&zk.getLive()==true) {//getRect创建矩形，用于判断碰撞，intersects方法用于判断矩形是否相交见api与tank1.6
-			Y=false;//判断球与板碰撞以后改变球的运动方向
+			if(y-YSPEED<=zk.getTop())
+			Y=false;//判断球与板碰撞以后改变球的运动方向,向上
+			else if(y+YSPEED>=zk.getBottom())
+			Y=true;//判断球与板碰撞以后改变球的运动方向,向下
+			if(x-XSPEED<zk.getLeft()){
+				System.out.println(x-XSPEED);
+			X=false;//判断球与板碰撞以后改变球的运动方向,向左
+			}
+			else if(x+XSPEED>zk.getRight()){
+				System.out.println(x+XSPEED);
+			X=true;//判断球与板碰撞以后改变球的运动方向,向右
+			}//这部分逻辑不够完善，需要ball的步进小一点，砖块大一点，否则判断出错，完全没问题的判断逻辑不好想
+
 			zk.setLive(false);
 			//System.out.println(x+"  "+y);
 			
