@@ -1,12 +1,11 @@
 /*
-*2014.01.28；
-*砖块范围，x从25到275，横排共11个砖块；
-*修改小球位置为（90,90），修改砖块大小（50*30）；
-*先添加两个砖块做范围调整，若小球位置为（60,60），则(60,30)右侧面出错，（10,300）下侧出错；
+
 */
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class GAME extends Frame {
 	public static final int GAME_WIDTH = 600;
@@ -14,7 +13,8 @@ public class GAME extends Frame {
 	
 	 Wall MyWall = new Wall(200,380);
 	 Ball MyBall = new Ball(90,90);
-	 ZK zk[]={new ZK(25,25),new ZK(75,25),new ZK(125,25),new ZK(175,25),new ZK(225,25),new ZK(275,25),new ZK(325,25),new ZK(375,25),new ZK(425,25),new ZK(475,25),new ZK(525,25),new ZK(525,55),new ZK(475,55),new ZK(425,55),new ZK(375,55),new ZK(125,55)};
+	 List<ZK> zk = new ArrayList<ZK>();
+	 /*ZK zk[]={new ZK(25,25),new ZK(75,25),new ZK(125,25),new ZK(175,25),new ZK(225,25),new ZK(275,25),new ZK(325,25),new ZK(375,25),new ZK(425,25),new ZK(475,25),new ZK(525,25),new ZK(525,55),new ZK(475,55),new ZK(425,55),new ZK(375,55),new ZK(125,55)};*/
 					
 	 
 	 
@@ -23,11 +23,17 @@ public class GAME extends Frame {
 	public void paint(Graphics g) {
 		MyWall.draw(g);
 		MyBall.hitwall(MyWall);//判断球和板碰撞
-		for(int i=0;i<16;i++)
+		/*for(int i=0;i<16;i++)
 		{	zk[i].draw(g);
 			MyBall.hitzk(zk[i]);
 			
-			}MyBall.draw(g);
+			}*/
+		for(int i=0; i<zk.size(); i++) {
+			ZK t = zk.get(i);
+			t.draw(g);
+			MyBall.hitzk(t);//14.2.8
+		}	//新加入时间：14/2/7
+			MyBall.draw(g);
 	}
 	
 
@@ -45,6 +51,11 @@ public class GAME extends Frame {
 	}//双缓存
 
 	public void lauchFrame() {
+			for(int i=0; i<11; i++)
+				for(int j=0;j<4; j++)
+					{
+						zk.add(new ZK(25 +50*(i+0), 25 +30*(j+0)));//此处尝试时间：14/2/7
+					}
 		this.setLocation(100,100);
 		this.setSize(GAME_WIDTH, GAME_HEIGHT);
 		this.setTitle("ZUANKUAI");

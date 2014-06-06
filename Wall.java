@@ -10,7 +10,7 @@ import java.awt.event.*;
 public class Wall{
 	int x,y;
 	public static final int SPEED = 8;
-	public static final int WIDTH = 600;
+	public static final int WIDTH = 200;
 	public static final int HEIGHT = 2;
 	private boolean live = true;
 	
@@ -33,10 +33,22 @@ public void draw(Graphics g) {
 		g.drawRect(x,y,WIDTH,HEIGHT);//改动，用矩形代替板子，便于判断碰撞事件,好像一个框框好看一点
 		//g.fillRect(x,y,WIDTH,HEIGHT);
 		g.setColor(c);
-	
-		move();
+		//setlocation();
+		//move();
+		Point mp=g.getMousePosition();
+		if (mp!=null)
+			x=mp.x;
+		else
+			move();
 	}
 	
+	void setlocation() throws HeadlessException{
+		//PointerInfo tmp;
+		//tmp=getPointerInfo();
+		Point mousepoint = MouseInfo.getPointerInfo().getLocation(); 
+		x=mousepoint.x;
+	}
+
 	void move() {
 		switch(dir) {
 		case L:
