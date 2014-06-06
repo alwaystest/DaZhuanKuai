@@ -52,6 +52,6 @@ public void draw(Graphics g) {
 						break;
 					}
 				}
-	}	
-}
+			}	
+		}
 }

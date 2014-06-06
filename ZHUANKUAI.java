@@ -1,5 +1,5 @@
-/*实现界面下方的墙移动。
-*2014、1、22
+/*实现界面下方的板移动。
+*2014、1、24
 */
 
 
@@ -11,12 +11,14 @@ public class ZHUANKUAI extends Frame {
 	public static final int GAME_WIDTH = 600;
 	public static final int GAME_HEIGHT = 400;
 	
-	 Wall MyWall= new Wall(50);
+	 Wall MyWall = new Wall(50);
+	 Ball MyBall = new Ball(60,60);
 	
 	Image offScreenImage = null;
 	
 	public void paint(Graphics g) {
 		MyWall.draw(g);
+		MyBall.draw(g);
 	}
 	
 
@@ -63,7 +65,7 @@ public class ZHUANKUAI extends Frame {
 			while(true) {
 				repaint();
 				try {
-					Thread.sleep(10);
+					Thread.sleep(30);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -76,8 +78,8 @@ public class ZHUANKUAI extends Frame {
 		public void keyPressed(KeyEvent e) {
 			MyWall.keyPressed(e);
 		
+		}
 	}
-}
 }
 
 
