@@ -1,8 +1,8 @@
-/*实现界面下方的板移动。
-*2014、1、24
+/*
+*2014.01.25；
+*试图解决板子移动第一下慢的问题。
+*板子出现问题只向左移动再向右移动，然后无法移动
 */
-
-
 
 import java.awt.*;
 import java.awt.event.*;
@@ -65,7 +65,7 @@ public class ZHUANKUAI extends Frame {
 			while(true) {
 				repaint();
 				try {
-					Thread.sleep(30);
+					Thread.sleep(100);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

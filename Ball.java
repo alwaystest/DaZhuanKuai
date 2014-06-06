@@ -8,7 +8,7 @@ public class Ball{
 	
 	public Ball(int x, int y){
 		this.x=x;
-		this.y=y;
+		this.y=y;//≥ı ºŒª÷√
 		//u=(x+10)/2;
 		//t=(y+10)/2;
 		}
