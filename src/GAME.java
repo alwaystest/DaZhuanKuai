@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class GAME extends Frame {
 	public static final int GAME_WIDTH = 600;
 	public static final int GAME_HEIGHT = 400;
-	
+	private static boolean mp=false;//标志 判断鼠标指针是否在窗口区域内
 	 Wall MyWall = new Wall(200,380);
 	 Ball MyBall = new Ball(90,90);
 	 List<ZK> zk = new ArrayList<ZK>();
@@ -21,8 +21,10 @@ public class GAME extends Frame {
 	Image offScreenImage = null;
 	
 	public void paint(Graphics g) {
+		if(mp==true){
 		Point mousepoint=this.getMousePosition();
 		MyWall.setlocation(mousepoint);
+		}
 		MyWall.draw(g);
 		MyBall.hitwall(MyWall);//判断球和板碰撞
 		/*for(int i=0;i<16;i++)
@@ -75,10 +77,15 @@ public class GAME extends Frame {
 			public void mouseMoved(MouseEvent e){
 				//MyWall.setlocation(e.getX());
 				System.out.println(e.getX());
-			}
+			}//没有效果，好象是没有加载到正确的component上
 			public void mouseEntered(MouseEvent e){
+				mp=true;
 				System.out.println("entered");
 			}
+			public void mouseExited(MouseEvent e){
+				mp=false;
+				System.out.println("exited");
+				}
 		});
 		
 		setVisible(true);

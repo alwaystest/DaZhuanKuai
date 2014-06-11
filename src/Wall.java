@@ -1,7 +1,7 @@
 /*
-*2014.01.26.2:00��
-*�ѽ����
-*���жϰ��������ײ�����intersects������API��TANK1.6
+*2014.01.26.2:00；
+*已解决。
+*可判断板与球的碰撞，详见intersects（）；API及TANK1.6
 */
 import java.awt.*;
 import java.awt.event.*;
@@ -25,12 +25,12 @@ public class Wall{
 	}
 	
 public void draw(Graphics g) {
-		if(!live) return;//�жϰ����Ƿ�������Ͳ����ٻ���
+		if(!live) return;//判断板子是否存活，死亡就不用再画了
 		
 		Color c = g.getColor();
 		g.setColor(Color.RED);
 		//g.drawLine(x,379,x+40,379);
-		g.drawRect(x,y,WIDTH,HEIGHT);//�Ķ����þ��δ�����ӣ������ж���ײ�¼�,����һ�����ÿ�һ��
+		g.drawRect(x,y,WIDTH,HEIGHT);//改动，用矩形代替板子，便于判断碰撞事件,好像一个框框好看一点
 		//g.fillRect(x,y,WIDTH,HEIGHT);
 		g.setColor(c);
 		//setlocation();//到game的adapter中调用
