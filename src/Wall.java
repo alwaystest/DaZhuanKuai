@@ -33,8 +33,8 @@ public void draw(Graphics g) {
 		g.drawRect(x,y,WIDTH,HEIGHT);//�Ķ����þ��δ�����ӣ������ж���ײ�¼�,����һ�����ÿ�һ��
 		//g.fillRect(x,y,WIDTH,HEIGHT);
 		g.setColor(c);
-		setlocation();
-		//move();
+		//setlocation();//到game的adapter中调用
+		move();
 		/*Point mp=g.getMousePosition();
 		if (mp!=null)
 			x=mp.x;
@@ -42,11 +42,12 @@ public void draw(Graphics g) {
 			move();*/
 	}
 	
-	void setlocation() throws HeadlessException{
+	void setlocation(Point mousepoint) throws HeadlessException{
 		//PointerInfo tmp;
 		//tmp=getPointerInfo();
-		Point mousepoint = MouseInfo.getPointerInfo().getLocation(); 
+		//Point mousepoint = MouseInfo.getPointerInfo().getLocation(); //获取到的是全局的坐标
 		x=mousepoint.x;
+		//x=y;
 	}
 
 	void move() {

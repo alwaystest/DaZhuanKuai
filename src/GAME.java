@@ -21,8 +21,10 @@ public class GAME extends Frame {
 	Image offScreenImage = null;
 	
 	public void paint(Graphics g) {
+		Point mousepoint=this.getMousePosition();
+		MyWall.setlocation(mousepoint);
 		MyWall.draw(g);
-		MyBall.hitwall(MyWall);//ÅĞ¶ÏÇòºÍ°åÅö×²
+		MyBall.hitwall(MyWall);//åˆ¤æ–­çƒå’Œæ¿ç¢°æ’
 		/*for(int i=0;i<16;i++)
 		{	zk[i].draw(g);
 			MyBall.hitzk(zk[i]);
@@ -32,7 +34,7 @@ public class GAME extends Frame {
 			ZK t = zk.get(i);
 			t.draw(g);
 			MyBall.hitzk(t);//14.2.8
-		}	//ĞÂ¼ÓÈëÊ±¼ä£º14/2/7
+		}	//æ–°åŠ å…¥æ—¶é—´ï¼š14/2/7
 			MyBall.draw(g);
 	}
 	
@@ -48,13 +50,13 @@ public class GAME extends Frame {
 		gOffScreen.setColor(c);
 		paint(gOffScreen);
 		g.drawImage(offScreenImage, 0, 0, null);
-	}//Ë«»º´æ
+	}//åŒç¼“å­˜
 
 	public void lauchFrame() {
 			for(int i=0; i<11; i++)
 				for(int j=0;j<4; j++)
 					{
-						zk.add(new ZK(25 +50*(i+0), 25 +30*(j+0)));//´Ë´¦³¢ÊÔÊ±¼ä£º14/2/7
+						zk.add(new ZK(25 +50*(i+0), 25 +30*(j+0)));//æ­¤å¤„å°è¯•æ—¶é—´ï¼š14/2/7
 					}
 		this.setLocation(100,100);
 		this.setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -69,8 +71,18 @@ public class GAME extends Frame {
 		
 		this.addKeyListener(new KeyMonitor());
 		
-		setVisible(true);
+		this.addMouseListener(new MouseAdapter(){
+			public void mouseMoved(MouseEvent e){
+				//MyWall.setlocation(e.getX());
+				System.out.println(e.getX());
+			}
+			public void mouseEntered(MouseEvent e){
+				System.out.println("entered");
+			}
+		});
 		
+		setVisible(true);
+		System.out.println(this.getName());
 		new Thread(new PaintThread()).start();
 	}
 
@@ -100,7 +112,7 @@ public class GAME extends Frame {
 		}
 		public void keyReleased(KeyEvent e){
 		    MyWall.keyReleased(e);
-		}//ÅĞ¶Ï°´¼üÊÍ·Å£¬°åÍ£Ö¹
+		}//åˆ¤æ–­æŒ‰é”®é‡Šæ”¾ï¼Œæ¿åœæ­¢
 	}
 }
 

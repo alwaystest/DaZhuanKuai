@@ -47,12 +47,12 @@ public class Ball{
 	}
 	
 	public Rectangle getRect() {
-		return new Rectangle(x-R, y-R, R+R, R+R);//¼Ó·¨ËÙ¶È±È³Ë·¨¿ì
+		return new Rectangle(x-R, y-R, R+R, R+R);//åŠ æ³•é€Ÿåº¦æ¯”ä¹˜æ³•å¿«
 	}
 	
 	public boolean hitwall(Wall w){
-		if(this.getRect().intersects(w.getRect())) {//getRect´´½¨¾ØĞÎ£¬ÓÃÓÚÅĞ¶ÏÅö×²£¬intersects·½·¨ÓÃÓÚÅĞ¶Ï¾ØĞÎÊÇ·ñÏà½»¼ûapiÓëtank1.6
-			Y=false;//ÅĞ¶ÏÇòÓë°åÅö×²ÒÔºó¸Ä±äÇòµÄÔË¶¯·½Ïò
+		if(this.getRect().intersects(w.getRect())) {//getRectåˆ›å»ºçŸ©å½¢ï¼Œç”¨äºåˆ¤æ–­ç¢°æ’ï¼Œintersectsæ–¹æ³•ç”¨äºåˆ¤æ–­çŸ©å½¢æ˜¯å¦ç›¸äº¤è§apiä¸tank1.6
+			Y=false;//åˆ¤æ–­çƒä¸æ¿ç¢°æ’ä»¥åæ”¹å˜çƒçš„è¿åŠ¨æ–¹å‘
 			//System.out.println(x+"  "+y);
 			
 			return true;
@@ -61,19 +61,19 @@ public class Ball{
 	}
 	
 	public boolean hitzk(ZK zk){
-		if(this.getRect().intersects(zk.getRect())&&zk.getLive()==true) {//getRect´´½¨¾ØĞÎ£¬ÓÃÓÚÅĞ¶ÏÅö×²£¬intersects·½·¨ÓÃÓÚÅĞ¶Ï¾ØĞÎÊÇ·ñÏà½»¼ûapiÓëtank1.6
+		if(this.getRect().intersects(zk.getRect())&&zk.getLive()==true) {//getRectåˆ›å»ºçŸ©å½¢ï¼Œç”¨äºåˆ¤æ–­ç¢°æ’ï¼Œintersectsæ–¹æ³•ç”¨äºåˆ¤æ–­çŸ©å½¢æ˜¯å¦ç›¸äº¤è§apiä¸tank1.6
 			if(y-YSPEED<=zk.getTop())
-			Y=false;//ÅĞ¶ÏÇòÓë°åÅö×²ÒÔºó¸Ä±äÇòµÄÔË¶¯·½Ïò,ÏòÉÏ
+			Y=false;//åˆ¤æ–­çƒä¸æ¿ç¢°æ’ä»¥åæ”¹å˜çƒçš„è¿åŠ¨æ–¹å‘,å‘ä¸Š
 			else if(y+YSPEED>=zk.getBottom())
-			Y=true;//ÅĞ¶ÏÇòÓë°åÅö×²ÒÔºó¸Ä±äÇòµÄÔË¶¯·½Ïò,ÏòÏÂ
+			Y=true;//åˆ¤æ–­çƒä¸æ¿ç¢°æ’ä»¥åæ”¹å˜çƒçš„è¿åŠ¨æ–¹å‘,å‘ä¸‹
 			if(x-XSPEED<zk.getLeft()){
-				System.out.println(x-XSPEED);
-			X=false;//ÅĞ¶ÏÇòÓë°åÅö×²ÒÔºó¸Ä±äÇòµÄÔË¶¯·½Ïò,Ïò×ó
+				//System.out.println(x-XSPEED);
+			X=false;//åˆ¤æ–­çƒä¸æ¿ç¢°æ’ä»¥åæ”¹å˜çƒçš„è¿åŠ¨æ–¹å‘,å‘å·¦
 			}
 			else if(x+XSPEED>zk.getRight()){
-				System.out.println(x+XSPEED);
-			X=true;//ÅĞ¶ÏÇòÓë°åÅö×²ÒÔºó¸Ä±äÇòµÄÔË¶¯·½Ïò,ÏòÓÒ
-			}//Õâ²¿·ÖÂß¼­²»¹»ÍêÉÆ£¬ĞèÒªballµÄ²½½øĞ¡Ò»µã£¬×©¿é´óÒ»µã£¬·ñÔòÅĞ¶Ï³ö´í£¬ÍêÈ«Ã»ÎÊÌâµÄÅĞ¶ÏÂß¼­²»ºÃÏë
+				//System.out.println(x+XSPEED);
+			X=true;//åˆ¤æ–­çƒä¸æ¿ç¢°æ’ä»¥åæ”¹å˜çƒçš„è¿åŠ¨æ–¹å‘,å‘å³
+			}//è¿™éƒ¨åˆ†é€»è¾‘ä¸å¤Ÿå®Œå–„ï¼Œéœ€è¦ballçš„æ­¥è¿›å°ä¸€ç‚¹ï¼Œç –å—å¤§ä¸€ç‚¹ï¼Œå¦åˆ™åˆ¤æ–­å‡ºé”™ï¼Œå®Œå…¨æ²¡é—®é¢˜çš„åˆ¤æ–­é€»è¾‘ä¸å¥½æƒ³
 
 			zk.setLive(false);
 			//System.out.println(x+"  "+y);

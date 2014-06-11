@@ -5,7 +5,7 @@ import java.util.*;
 public class ZK{
 	private boolean live=true;
 	int x,y;
-	private int WIDTH=30;//ԭ��Ϊ100
+	private int WIDTH=30;//原来为100
 	private int HEIGHT=30;
 	
 	ZK(int x,int y){
@@ -39,12 +39,12 @@ public class ZK{
 	}
 	
 		public int  getLeft(){
-			System.out.println(x);
+			//System.out.println(x);
 		return x;
 	}
 	
 	public int  getRight(){
-		System.out.println(x+WIDTH);
+		//System.out.println(x+WIDTH);
 		return x+WIDTH;
 	}
 
