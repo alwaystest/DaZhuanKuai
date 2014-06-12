@@ -11,7 +11,7 @@ component不在鼠标位置下方会报错，打砖块中设置了mouseEntered�
 			public void mouseMoved(MouseEvent e){
 				//MyWall.setlocation(e.getX());
 				System.out.println(e.getX());
-			}//需要加载到正确的component上
+			}
   
 ###以上的代码没有达到应有的效果
 正确的代码如下  
@@ -20,7 +20,7 @@ component不在鼠标位置下方会报错，打砖块中设置了mouseEntered�
 			public void mouseMoved(MouseEvent e){
 				MyWall.setlocation(e.getX());
 				//System.out.println(e.getX());
-			}//没有效果，好象是没有加载到正确的component上
+			}//mouseMotionListener才能监听鼠标move事件
 			public void mouseEntered(MouseEvent e){
 				mp=true;
 				System.out.println("entered");
