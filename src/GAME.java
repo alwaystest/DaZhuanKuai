@@ -85,7 +85,7 @@ public class GAME extends Frame {
 				mp=false;
 				System.out.println("exited");
 				}
-		});//这个是通过getMousePosition()设定板的位置
+		});//这个是通过getMousePosition()设定板的位置，此处判断鼠标是否在界面上方
 		
 		setVisible(true);
 		new Thread(new PaintThread()).start();
