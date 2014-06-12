@@ -5,7 +5,7 @@
 Zhuankuai0.8  
 说明:  
 1. 修改了GAME.java中砖块的生成方法。并已经以循环方式写出4行砖块。  
-2. 增加通过鼠标位置控制板的移动，待完善细节，获取鼠标坐标的[记录](http://www.evernote.com/shard/s93/sh/9551a7b0-f389-48a0-9e23-b3f2d820e2a3/b139647fef562a46e9d30f7e7bd629d0)
+2. 增加通过鼠标位置控制板的移动，待完善细节，获取鼠标坐标的[记录(Evernote)](http://www.evernote.com/shard/s93/sh/9551a7b0-f389-48a0-9e23-b3f2d820e2a3/b139647fef562a46e9d30f7e7bd629d0)[记录(github)](mouse.md)
 
 新增BUG：  
 1. 生成砖块后小球未能与砖块进行碰撞，我认为是某处少了add()。引眼睛受不了了，明天再搞。  
