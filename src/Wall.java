@@ -42,6 +42,13 @@ public void draw(Graphics g) {
 			move();*/
 	}
 	
+	void setlocation(int y) throws HeadlessException{
+		//PointerInfo tmp;
+		//tmp=getPointerInfo();
+		//Point mousepoint = MouseInfo.getPointerInfo().getLocation(); //获取到的是全局的坐标
+		x=y;
+		//x=y;
+	}
 	void setlocation(Point mousepoint) throws HeadlessException{
 		//PointerInfo tmp;
 		//tmp=getPointerInfo();

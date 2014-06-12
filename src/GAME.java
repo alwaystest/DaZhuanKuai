@@ -1,7 +1,3 @@
-/*
-
-*/
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
@@ -21,8 +17,9 @@ public class GAME extends Frame {
 	Image offScreenImage = null;
 	
 	public void paint(Graphics g) {
-		if(mp==true){
+		if(mp){
 		Point mousepoint=this.getMousePosition();
+		//if(mousepoint!=null)
 		MyWall.setlocation(mousepoint);
 		}
 		MyWall.draw(g);
@@ -73,11 +70,13 @@ public class GAME extends Frame {
 		
 		this.addKeyListener(new KeyMonitor());
 		
-		this.addMouseListener(new MouseAdapter(){
+		/*this.addMouseMotionListener(new MouseAdapter(){
 			public void mouseMoved(MouseEvent e){
-				//MyWall.setlocation(e.getX());
-				System.out.println(e.getX());
-			}//没有效果，好象是没有加载到正确的component上
+				MyWall.setlocation(e.getX());
+				//System.out.println(e.getX());
+			}//mouseMotionListener才能监听鼠标move事件
+		});//这个是通过mouseMove设定板的位置*/
+		this.addMouseListener(new MouseAdapter(){
 			public void mouseEntered(MouseEvent e){
 				mp=true;
 				System.out.println("entered");
@@ -86,10 +85,9 @@ public class GAME extends Frame {
 				mp=false;
 				System.out.println("exited");
 				}
-		});
+		});//这个是通过getMousePosition()设定板的位置
 		
 		setVisible(true);
-		System.out.println(this.getName());
 		new Thread(new PaintThread()).start();
 	}
 
