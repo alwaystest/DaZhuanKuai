@@ -1,7 +1,6 @@
 package eric;
 
 import java.awt.*;
-import java.awt.event.*;
 
 public class Ball {
 	private int x, y;

@@ -46,8 +46,8 @@ public class Wall {
 			this.x = 0;
 			return;
 		}
-		if (x + WIDTH > 595) {
-			this.x = 595 - WIDTH;
+		if (x + WIDTH > GAME.GAME_WIDTH) {
+			this.x = GAME.GAME_WIDTH - WIDTH;
 			return;
 		}
 		this.x = x;
@@ -67,8 +67,8 @@ public class Wall {
 
 		if (x < 0)
 			x = 0;
-		if (x + WIDTH > 595)
-			x = 595 - WIDTH;// TODO:bug1
+		if (x + WIDTH > GAME.GAME_WIDTH)
+			x = GAME.GAME_WIDTH - WIDTH;// TODO:bug1
 	}
 
 	public void keyPressed(KeyEvent e) {

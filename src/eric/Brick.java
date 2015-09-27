@@ -1,13 +1,11 @@
 package eric;
 
 import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
 
 public class Brick {
 	private boolean isAlive = true;
 	int x, y;
-	private int WIDTH = 30;// 原来为100
+	private int WIDTH = 30;
 	private int HEIGHT = 30;
 
 	Brick(int x, int y) {

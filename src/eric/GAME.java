@@ -2,13 +2,11 @@ package eric;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.List;
-import java.util.ArrayList;
 
 public class GAME extends Frame {
 	public static final int GAME_WIDTH = 600;
 	public static final int GAME_HEIGHT = 400;
-	private static boolean isMouseIn = false;// 标志 判断鼠标指针是否在窗口区域内
+	private static boolean isMouseIn = false;
 	Wall MyWall = new Wall(200, 380);
 	Ball MyBall = new Ball(90, 90);
 	DIYArrayList<Brick> brickList = new DIYArrayList<Brick>();
