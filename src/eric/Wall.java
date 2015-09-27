@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Wall {
-	int x, y;
+	private int x, y;
 	public static final int SPEED = 8;
 	public static final int WIDTH = 200;
 	public static final int HEIGHT = 2;
@@ -19,7 +19,7 @@ public class Wall {
 
 	enum Direction {
 		L, R, STOP
-	};
+	}
 
 	private Direction dir = Direction.STOP;
 
@@ -40,14 +40,15 @@ public class Wall {
 		move();
 	}
 
-	void setlocation(int x) throws HeadlessException {
+	void setLocation(int x) throws HeadlessException {
+		//make mouse point at middle of wall
 		x -= (WIDTH >> 1);
 		if (x < 0) {
 			this.x = 0;
 			return;
 		}
-		if (x + WIDTH > 595) {
-			this.x = 595 - WIDTH;
+		if (x + WIDTH > GAME.GAME_WIDTH) {
+			this.x = GAME.GAME_WIDTH - WIDTH;
 			return;
 		}
 		this.x = x;
@@ -67,8 +68,8 @@ public class Wall {
 
 		if (x < 0)
 			x = 0;
-		if (x + WIDTH > 595)
-			x = 595 - WIDTH;// TODO:bug1
+		if (x + WIDTH > GAME.GAME_WIDTH)
+			x = GAME.GAME_WIDTH - WIDTH;
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -92,7 +93,7 @@ public class Wall {
 			dir = Direction.L;
 		else if (bR)
 			dir = Direction.R;
-		else if (!bL && !bR)
+		else
 			dir = Direction.STOP;
 	}
 
@@ -111,5 +112,17 @@ public class Wall {
 
 	public Rectangle getRect() {
 		return new Rectangle(x, y, WIDTH, HEIGHT + 2);
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public boolean isAlive() {
+		return isAlive;
 	}
 }

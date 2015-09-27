@@ -1,89 +1,129 @@
 package eric;
 
 import java.awt.*;
-import java.awt.event.*;
 
 public class Ball {
-	private int x, y;
-	private boolean isAlive = true;
-	private boolean moveToRight = true, moveToDown = true;
-	public static final int XSPEED = 5;
-	public static final int YSPEED = 5;
-	public static final int R = 10;
-	
-	public Ball(){
-		this.x = 0;
-		this.y = 0;
-	}
+    private double x, y;
+    private boolean isAlive = true;
+    private boolean moveToRight = true, moveToDown = true;
+    private int count;
 
-	public Ball(int x, int y) {
-		this.x = x;
-		this.y = y;
-	}
+    private static int XSpeed = 5;
 
-	public void draw(Graphics g) {
-		if (isAlive == true) {
-			Color c = g.getColor();
-			g.setColor(Color.YELLOW);
-			g.fillOval(x, y, R, R);
-			g.setColor(c);
-			move();
-		}
-	}
+    private static int YSpeed = 5;
+    public static int R = 10;
 
-	public void move() {
-//		TODO: 根据窗口大小判断
-		if (x <= 0)
-			moveToRight = true;
-		else if (y >= 400)
-			isAlive = false;
-		else if (x >= 585)
-			moveToRight = false;
-		else if (y <= 25)
-			moveToDown = true;
-		if(moveToDown)
-			y += YSPEED;
-		else
-			y -= YSPEED;
-		if(moveToRight)
-			x += XSPEED;
-		else
-			x -= XSPEED;
-	}
+    public Ball() {
+        this.x = 0;
+        this.y = 0;
+        count = 0;
+    }
 
-	public Rectangle getRect() {
-		return new Rectangle(x - R, y - R, R + R, R + R);// 加法速度比乘法快
-	}
+    public Ball(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
-	public boolean isHitWall(Wall w) {
-		if(!moveToDown){
-			return false;//TODO: return not be used
-		}
-		if (this.getRect().intersects(w.getRect())) {// getRect创建矩形，用于判断碰撞，intersects方法用于判断矩形是否相交见api与tank1.6
-			moveToDown = false;// 判断球与板碰撞以后改变球的运动方向
-			return true;
-		}
-		return false;
-	}
+    public void draw(Graphics g) {
+        if (isAlive) {
+            Color c = g.getColor();
+            g.setColor(Color.YELLOW);
+            g.fillOval((int)x, (int)y, R, R);
+            g.setColor(c);
+        }
+    }
 
-	public boolean isHitBrick(Brick brick) {
-		// TODO: change to event driven
-		if (this.getRect().intersects(brick.getRect()) && brick.getLive() == true) {// getRect创建矩形，用于判断碰撞，intersects方法用于判断矩形是否相交见api与tank1.6
-			if (y - YSPEED <= brick.getTop())
-				moveToDown = false;// 判断球与板碰撞以后改变球的运动方向,向上
-			else if (y + YSPEED >= brick.getBottom())
-				moveToDown = true;// 判断球与板碰撞以后改变球的运动方向,向下
-			if (x - XSPEED < brick.getLeft()) {
-				// System.out.println(x-XSPEED);
-				moveToRight = false;// 判断球与板碰撞以后改变球的运动方向,向左
-			} else if (x + XSPEED > brick.getRight()) {
-				// System.out.println(x+XSPEED);
-				moveToRight = true;// 判断球与板碰撞以后改变球的运动方向,向右
-			}// 这部分逻辑不够完善，需要ball的步进小一点，砖块大一点，否则判断出错，完全没问题的判断逻辑不好想
-			brick.setLive(false);
-			return true;
-		}
-		return false;
-	}
+    public void move(double dt) {
+        if (moveToDown)
+            y += YSpeed * dt;
+        else
+            y -= YSpeed * dt;
+        if (moveToRight)
+            x += XSpeed * dt;
+        else
+            x -= XSpeed * dt;
+//        System.out.println(x + "\t" + y);
+    }
 
+    public Rectangle getRect() {
+        return new Rectangle((int)x - R, (int) y - R, R + R, R + R);// 加法速度比乘法快
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public int getXSpeed() {
+        return XSpeed;
+    }
+
+    public int getYSpeed() {
+        return YSpeed;
+    }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public void setIsAlive(boolean isAlive) {
+        this.isAlive = isAlive;
+    }
+
+    public boolean isMoveToDown() {
+        return moveToDown;
+    }
+
+    public boolean isMoveToRight() {
+        return moveToRight;
+    }
+
+    public boolean bounceOffVertical(Event e) {
+        boolean flag = false;
+        Brick brick = e.getBrick();
+        if(brick == null){
+            flag = true;
+            this.count++;
+            this.moveToRight = ! this.moveToRight;
+        }else{
+            if(brick.isAlive() && this.y >= brick.getTop() - R && this.y <= brick.getBottom() + R) {
+                flag = true;
+                this.count++;
+                this.moveToRight = !this.moveToRight;
+                brick.setLive(false);
+            }
+        }
+        return flag;
+    }
+
+    public boolean bounceOffHorizontal(Event e,Wall myWall) {
+        boolean flag = false;
+        Brick brick = e.getBrick();
+        if(brick == null){
+            if(this.moveToDown && this.x >= myWall.getX() && this.x <= myWall.getX() + Wall.WIDTH) {
+                flag = true;
+                this.count++;
+                this.moveToDown = false;
+            }else if(!this.moveToDown){
+                flag = true;
+                this.count++;
+                this.moveToDown = true;
+            }
+        }else{
+            if(brick.isAlive() && this.x >= brick.getLeft() - R && this.x <= brick.getRight() + R){
+                flag = true;
+                this.count++;
+                this.moveToDown = ! this.moveToDown;
+                brick.setLive(false);
+            }
+        }
+        return flag;
+    }
 }

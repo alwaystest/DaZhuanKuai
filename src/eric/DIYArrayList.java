@@ -1,6 +1,8 @@
 package eric;
 
-public class DIYArrayList<Item> {
+import java.util.Iterator;
+
+public class DIYArrayList<Item> implements Iterable<Item>{
 	private Item[] elementData;
 	private int size;
 
@@ -26,7 +28,7 @@ public class DIYArrayList<Item> {
 		}
 		Item tmp = elementData[id];
 		elementData[id] = elementData[size - 1];
-		elementData[size--] = null;
+		elementData[--size] = null;
 		return tmp;
 	}
 
@@ -64,5 +66,28 @@ public class DIYArrayList<Item> {
 			str.append(elementData[i].toString());
 		}
 		return str.toString();
+	}
+
+	@Override
+	public Iterator<Item> iterator() {
+		return new DIYArrayIterator();
+	}
+	
+	private class DIYArrayIterator implements Iterator<Item>{
+		private int N;
+		
+		public DIYArrayIterator(){
+			this.N = 0;
+		}
+		@Override
+		public boolean hasNext() {
+			return N < size;
+		}
+
+		@Override
+		public Item next() {
+			return elementData[N++];
+		}
+		
 	}
 }
