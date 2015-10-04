@@ -3,7 +3,7 @@ package eric;
 import java.awt.*;
 
 public class Ball {
-    private double x, y;
+    private double x, y;//左上角的位置
     private boolean isAlive = true;
     private boolean moveToRight = true, moveToDown = true;
     private int count;
@@ -11,7 +11,7 @@ public class Ball {
     private static int XSpeed = 5;
 
     private static int YSpeed = 5;
-    public static int R = 10;
+    public static int R = 5;
 
     public Ball() {
         this.x = 0;
@@ -28,8 +28,9 @@ public class Ball {
         if (isAlive) {
             Color c = g.getColor();
             g.setColor(Color.YELLOW);
-            g.fillOval((int)x, (int)y, R, R);
+            g.fillOval((int) x, (int) y, R + R, R + R);
             g.setColor(c);
+//            System.out.println(x+"\t"+y);
         }
     }
 
@@ -93,7 +94,7 @@ public class Ball {
             this.count++;
             this.moveToRight = ! this.moveToRight;
         }else{
-            if(brick.isAlive() && this.y >= brick.getTop() - R && this.y <= brick.getBottom() + R) {
+            if(brick.isAlive() && this.y+0.1 >= brick.getTop() - R - R && this.y-0.1 <= brick.getBottom() - R) {
                 flag = true;
                 this.count++;
                 this.moveToRight = !this.moveToRight;
@@ -107,7 +108,7 @@ public class Ball {
         boolean flag = false;
         Brick brick = e.getBrick();
         if(brick == null){
-            if(this.moveToDown && this.x >= myWall.getX() && this.x <= myWall.getX() + Wall.WIDTH) {
+            if(this.moveToDown && this.x+0.1 >= myWall.getX() - R && this.x-0.1 <= myWall.getX() + Wall.WIDTH - R) {
                 flag = true;
                 this.count++;
                 this.moveToDown = false;
@@ -117,7 +118,7 @@ public class Ball {
                 this.moveToDown = true;
             }
         }else{
-            if(brick.isAlive() && this.x >= brick.getLeft() - R && this.x <= brick.getRight() + R){
+            if(brick.isAlive() && this.x+0.1 >= brick.getLeft() - R -R && this.x-0.1 <= brick.getRight() - R){
                 flag = true;
                 this.count++;
                 this.moveToDown = ! this.moveToDown;

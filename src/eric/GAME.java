@@ -3,11 +3,11 @@ package eric;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GAME extends Frame {
+public class GAME extends Panel {
     public static final int GAME_WIDTH = 600;
     public static final int GAME_HEIGHT = 400;
-    private static final double LIMIT = 90;
-    private static final int Hz = 8;
+    private static final double LIMIT = 120;
+    private static final int Hz = 30;
     private boolean isMouseIn;// 标志 判断鼠标指针是否在窗口区域内
     private Wall MyWall;
     private Ball MyBall;
@@ -20,12 +20,10 @@ public class GAME extends Frame {
 	 * ZK(425,25),new ZK(475,25),new ZK(525,25),new ZK(525,55),new
 	 * ZK(475,55),new ZK(425,55),new ZK(375,55),new ZK(125,55)};
 	 */
-
     Image offScreenImage = null;
 
     public static void main(String[] args) {
         GAME game = new GAME();
-        // game.predict();
         game.launchFrame();
     }
 
@@ -52,18 +50,14 @@ public class GAME extends Frame {
                 MyWall.setLocation(mousePoint.x);
         }
         MyWall.draw(g);
-//        MyBall.isHitWall(MyWall);// 判断球和板碰撞
         for (int i = 0; i < brickList.size(); i++) {
             Brick t = brickList.get(i);
-            t.draw(g);
             if (!t.isAlive()) {// In DIYArrayList.remove(id),elementData[id] = elementData[size-1]. elementData[i] needs to be painted.
                 brickList.remove(i--);
+                continue;
             }
+            t.draw(g);
         }
-        /*
-         * for(Brick tmp : brickList){ //backup, i like use iterator
-		 * tmp.draw(g); MyBall.isHitBrick(tmp); }
-		 */
         MyBall.draw(g);
     }
 
@@ -73,24 +67,26 @@ public class GAME extends Frame {
         }
         Graphics gOffScreen = offScreenImage.getGraphics();
         Color c = gOffScreen.getColor();
-        gOffScreen.setColor(Color.BLACK);
-        gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        gOffScreen.setColor(Color.BLACK);//背景颜色
+        gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);//相当于clear
         gOffScreen.setColor(c);
         paint(gOffScreen);
         g.drawImage(offScreenImage, 0, 0, null);
     }// 双缓存
 
     public void launchFrame() {
-        this.setLocation(100, 100);
-        this.setSize(GAME_WIDTH, GAME_HEIGHT);
-        this.setTitle("GAME@ERIC");
-        this.addWindowListener(new WindowAdapter() {
+        Frame f = new Frame();
+        f.setLocation(100, 100);
+        f.setSize(GAME_WIDTH+10, GAME_HEIGHT + 20);
+        f.setTitle("GAME@ERIC");
+        f.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 System.exit(0);
             }
         });
-        this.setResizable(false);
-        this.setBackground(Color.BLACK);
+        f.setResizable(false);
+        f.setBackground(Color.BLACK);
+        f.add(this);
         this.addKeyListener(new KeyMonitor());
 
 		/*
@@ -111,7 +107,7 @@ public class GAME extends Frame {
             }
         });// 这个是通过getMousePosition()设定板的位置，此处判断鼠标是否在界面上方
 
-        setVisible(true);
+        f.setVisible(true);
         new Thread(new PaintThread()).start();
     }
 
@@ -127,7 +123,7 @@ public class GAME extends Frame {
                 time = event.getTime();
                 if (event.getBall() == null) {
                     // repaint event
-                    if (MyBall.getY() > MyWall.getY() + Ball.R)
+                    if (MyBall.getY() > MyWall.getY())
                         MyBall.setIsAlive(false);
                     pq.insert(new Event(time + 1.0 / Hz, null, null, false));
                     repaint();
@@ -139,7 +135,7 @@ public class GAME extends Frame {
                         predict(LIMIT);
                 }
                 try {
-                    Thread.sleep(10);
+                    Thread.sleep(2);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -165,12 +161,13 @@ public class GAME extends Frame {
         boolean moveToDown = MyBall.isMoveToDown();
         double ballX = MyBall.getX();
         double ballY = MyBall.getY();
+        int R = Ball.R;
         for (Brick b : brickList) {
 
             // be able to arrive b.left
-            if (moveToRight && ballX < b.getLeft()) {
-                double eventTime = (b.getLeft() - ballX) / MyBall.getXSpeed();
-                assert eventTime > 0;
+            if (moveToRight && ballX <= b.getLeft()) {
+                double eventTime = (b.getLeft() - R - R - ballX) / MyBall.getXSpeed();
+                assert eventTime >= 0;
                 if (eventTime < limit) {
                     Event event = new Event(time + eventTime, MyBall, b, true);
                     pq.insert(event);
@@ -187,7 +184,7 @@ public class GAME extends Frame {
             }
             // be able to arrive b.top
             if (moveToDown && ballY < b.getTop()) {
-                double eventTime = (b.getTop() - ballY) / MyBall.getYSpeed();
+                double eventTime = (b.getTop() - R - R - ballY) / MyBall.getYSpeed();
                 assert eventTime > 0;
                 if (eventTime < limit) {
                     Event event = new Event(time + eventTime, MyBall, b, false);
@@ -207,7 +204,7 @@ public class GAME extends Frame {
         // time to arrive edge or wall
         if (moveToDown) {
             // time to hit wall
-            double eventTime = ((MyWall.getY() - ballY) / MyBall.getYSpeed());
+            double eventTime = ((MyWall.getY() - R - R - ballY) / MyBall.getYSpeed());
             if (eventTime < limit) {
                 pq.insert(new Event(time + eventTime, MyBall, null, false));
 //                System.out.println(eventTime);
@@ -220,7 +217,7 @@ public class GAME extends Frame {
             }
         }
         if (moveToRight) {
-            double eventTime = (GAME_WIDTH - ballX) / MyBall.getXSpeed();
+            double eventTime = (GAME_WIDTH - R - R - ballX) / MyBall.getXSpeed();
             if (eventTime < limit) {
                 pq.insert(new Event(time + eventTime, MyBall, null, true));
 //                System.out.println(eventTime);
