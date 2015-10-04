@@ -2,6 +2,14 @@
 
 ###本游戏基于JAVA开发，实现打砖块的实现。
 
+2015.10.05 update
+
+1. 对上一版的碰撞逻辑进行了修改，更加符合认知，但还是有些小问题。
+2. 对游戏的显示进行了修改，之前直接在frame里面作图，窗口的装饰器比如Title会占用一部分面积，导致边角（比如（x，0））的图形被遮挡。现在改用Panel做界面的容器，Frame调用add方法添加Panel，这样显示出来的图形就不会被遮挡。
+3. 由于使用了Panel，窗口目前使用setsize强制指定大小，下一步应该做成自适应的，下午调试没能实现，留给以后。
+4. 发现SWING还是好用一些，有时间的话把目前的AWT实现修改为SWING，但是重绘方法跟之前不同了，需要了解。
+5. 使用Panel的解决方法来自[这里](http://stackoverflow.com/questions/14183529/paint-method-draws-outside-jframe-if-first-coord-0-0)
+
 2015.10.01 update
 
 1. 之前几次commit修正了一些不好的编程语义。
